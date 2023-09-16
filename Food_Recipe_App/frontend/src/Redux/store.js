@@ -1,9 +1,11 @@
 import { legacy_createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import { reducer as recepieReducer } from "./reducer";
+import { reducer as recepieReducer } from "./Recepie/reducer";
+import { RandomRecepiereducer } from "./Recepie/reducer";
 
 const rootReducer = combineReducers({
-    recepieReducer
+    recepieReducer,
+    RandomRecepiereducer,
 });
 
 

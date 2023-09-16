@@ -8,10 +8,10 @@ import DetailPage from '../Pages/DetailPage'
 const AllRoutes = () => {
   return (
     <Routes>
-      <Route to="/" element={<HomePage />} />
-      <Route to="/login" element={<Login />} />
-      <Route to="/saved" element={<Saved />}/>
-      <Route to="/recepie/:id" element={<DetailPage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/saved" element={<Saved />}/>
+      <Route path="/recepie/:id" element={<DetailPage />} />
     </Routes>
   )
 }

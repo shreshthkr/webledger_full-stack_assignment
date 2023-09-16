@@ -1,89 +1,135 @@
-import React from "react";
-import { Box, Flex, UnorderedList, ListItem, Heading, InputGroup, Input,InputRightAddon, InputRightElement, Stack } from "@chakra-ui/react";
-import { SearchIcon } from '@chakra-ui/icons'
-import { Link } from "react-router-dom";
+import React from 'react'
+import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+import {SearchIcon} from '@chakra-ui/icons';
+import {RxAvatar} from "react-icons/rx";
 const Navbar = () => {
-  return (
-    <>
-      <Box
-        w="100%"
-        h="60px"
-        boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        position="fixed"
-        top={0}
-      >
-        <Flex
-          w="50%"
-          border={"1px solid red"}
-          h="100%"
-          alignItems={"center"}
-          justifyContent={"space-around"}
-        >
-          <Heading
-            fontFamily={"cursive"}
-            fontStyle={"sans-serif"}
-            fontWeight={700}
-            color={"orange"}
-            _hover={{cursor:"pointer"}}
-          >
-            Recepies
-          </Heading>
-          <UnorderedList
-            w="40%"
-            display="flex"
-            listStyleType="none"
-            alignItems={"center"}
-            justifyContent={"space-around"}
-          >
-            <ListItem
-              fontSize={"16px"}
-              fontWeight={600}
-              fontFamily={"sans-serif"}
-              color={"blackAlpha.200"}
-            >
-              <Link to="/"  style={{ textDecoration: "none !important" }}>
-                Home
-              </Link>
-            </ListItem>
-            <ListItem
-              fontSize={"16px"}
-              fontWeight={600}
-              fontFamily={"sans-serif"}
-              color={"blackAlpha.200"}
-            >
-              <Link
-                to="/saved"
-                _hover={{ textDecoration: "none" }}
-                _focus={{ textDecoration: "none" }}
-              >
-                Saved
-              </Link>
-            </ListItem>
-          </UnorderedList>
-        </Flex>
-        <Flex
-        w="50%"
+ const navigate = useNavigate();
 
-        >
-            <Stack>
-        <InputGroup>
-   
-    <Input placeholder='Search recepie' />
-    <InputRightElement>
-      <SearchIcon color='black.500' />
-    </InputRightElement>
-  </InputGroup>
-  </Stack>
-  <Box>
-    
-  </Box>
-        </Flex>
-      </Box>
-    </>
-  );
-};
+
+ const ToHomePage = () => {
+    return navigate("/")
+ }
+
+const ToSavedPage = () => {
+    return navigate("/saved")
+}
+
+const ToLoginPage = () => {
+    return navigate("/login")
+}
+
+  return (
+    <NAVBAR>
+      <div className='nav-1'>
+        <div className='logo'>
+            <h1 onClick={ToHomePage}>Recepies</h1>
+        </div>
+        <div className='menu'>
+            <ul>
+                <li onClick={ToHomePage}>Home</li>
+                <li onClick={ToSavedPage}>Saved</li>
+            </ul>
+        </div>
+      </div>
+      <div className='nav-2'>
+        <div className='search-box'>
+            <input type="text" placeholder='Search recepie' />
+            <button><SearchIcon fontWeight={600} /></button>
+        </div>
+        <div className='login-avatar'>
+           <RxAvatar fontSize={"30px"} cursor={"pointer"} onClick={ToLoginPage} /> 
+        </div>
+      </div>
+    </NAVBAR>
+  )
+}
 
 export default Navbar;
+
+
+const NAVBAR = styled.div`
+    width: 100%;
+    height:65px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: absolute;
+    top:0;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .nav-1{
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .logo{
+        width: 35%;
+    }
+    .logo>h1{
+        font-size: 24px;
+        text-align: center;
+        font-family: cursive;
+        font-style: bold;
+        color: #ff3700;
+    }
+    .logo>h1:hover{
+        cursor: pointer;
+    }
+    .menu{
+        width:50%;
+    }
+    .menu>ul{
+       display:flex;
+       align-items:center ;
+       justify-content: space-around;
+       
+    }
+    .menu>ul>li{
+        list-style: none;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: "Source Sans Pro", Arial, sans-serif;
+    }
+    .menu>ul>li:hover{
+        cursor: pointer;
+        color:#ff3700; ;
+    }
+    .nav-2{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .search-box{
+       width:60%;
+       height: 100%;
+       display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .search-box>input{
+       width:80%;
+       height: 30px;
+       border: 1px solid gray;
+       border-right: none;
+       border-bottom-left-radius:5px;
+       border-top-left-radius:5px;
+    }
+    .search-box>button{
+        width: 80px;
+        height: 34px;
+        border: 1px solid gray;
+        border-left: none;
+        border-bottom-right-radius:5px;
+       border-top-right-radius:5px;
+
+    }
+    .login-avatar{
+
+    }
+`
