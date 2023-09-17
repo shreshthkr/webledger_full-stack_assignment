@@ -18,7 +18,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     case GET_RECEPIE_REQUEST:
       return { ...state, isLoading: true };
     case GET_RECEPIE_SUCCESS:
-      return { ...state, isLOading: false, recepie: payload };
+      return { ...state, isLoading: false, recepie: payload };
     case GET_RECEPIE_ERROR:
       return { ...state, isLoading: false, isError: true };
     default:
