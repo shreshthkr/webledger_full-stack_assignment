@@ -1,39 +1,51 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react'
+import styled from 'styled-components';
 import { GiKnifeFork } from "react-icons/gi";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import { useToast } from '@chakra-ui/react'
+const Signup = () => {
 
-  const handleToSignup = () => {
-    
-    return navigate("/signup")
-  }
-  const handleSubmit = () => {
+    const [name,setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const toast = useToast()
+
+    const handleToLogin = () => {
+      return navigate("/login")
+    }
+
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("abc")
     const payload = {
-      email: email,
-      password: password,
+        name:name,
+        email:email,
+        password:password,
+
     };
-    fetch("http://localhost:8080/users/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "Application/json",
-      },
-      body: JSON.stringify(payload),
+    fetch("http://localhost:8080/users/register",{
+        method:"POST",
+        headers: {
+            "Content-type": "Application/json",
+          },
+          body: JSON.stringify(payload), 
     })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.token);
+    .then((res) => res.json())
+    .then((res) =>{ console.log(res);
+    toast({
+        title: 'Successfull',
+        description: "Signup Successful, go to Login page",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
       })
-      .catch((err) => console.log(err));
-  };
+   } )
+    .catch((err) => console.log(err));
+   }
   return (
-    <LOGINCONTAINER>
-      <div className="logo">
+    <SIGNUP>
+            <div className="logo">
         <h1>
           <GiKnifeFork />
           Recepies
@@ -42,34 +54,36 @@ const Login = () => {
       <div className="form">
         <div>
           <form className="form-box">
+          <div className="input-tag">
+              <label>Name</label>
+              <input type="text" placeholder="Enter your full name" value={name} onChange={(e) => (setName(e.target.value))} />
+            </div>
             <div className="input-tag">
               <label>Email</label>
-              <input type="email" placeholder="Enter registered email" />
+              <input type="email" placeholder="Enter your email" value={email} onChange={(e) => (setEmail(e.target.value))} />
             </div>
             <div className="input-tag">
               <label>Password</label>
-              <input type="password" placeholder="Enter your password" />
+              <input type="password" placeholder="Enter password" value={password} onChange={(e) => (setPassword(e.target.value))} />
             </div>
           </form>
-          <button>Login</button>
+          <button type="submit" onClick={handleSubmit}>Signup</button>
         </div>
-        <div className="signup-opt">
+        <div className="login-opt">
           <p>
-            Didn't have account? <span onClick={handleToSignup}>Signup</span>
+            Already have an account? <span onClick={handleToLogin}>Login</span>
           </p>
-          <div className="google-opt">
-            <p>Continue With Google <FcGoogle/></p>
-          </div>
         </div>
       </div>
-    </LOGINCONTAINER>
-  );
-};
+    </SIGNUP>
+  )
+}
 
-export default Login;
+export default Signup;
 
-const LOGINCONTAINER = styled.div`
-  width: 80%;
+
+const SIGNUP = styled.div`
+   width: 80%;
   height: auto;
   margin: auto;
   display: flex;
@@ -122,11 +136,20 @@ const LOGINCONTAINER = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
- gap: 5px;
+  gap: 5px;
   }
   .form-box{
     width: 100%;
  
+  }
+  input[type="text"]{
+     width: 98%;
+     height: 35px;
+     border: 1px solid gray;
+     text-align: left;
+     border-radius: 8px;
+     margin-bottom: 15px;
+
   }
   input[type="email"]{
      width: 98%;
@@ -156,36 +179,17 @@ const LOGINCONTAINER = styled.div`
     cursor: pointer;
   }
 
-  .signup-opt{
+  .login-opt{
     width: 100%;
     height: 30px;
   }
-  .signup-opt>p{
+  .login-opt>p{
     text-align: center;
     font-size: 16px;
     font-family: "Source Sans Pro", Arial, sans-serif;
   }
-  .signup-opt>p span{
+  .login-opt>p span{
     color: blue;
     cursor: pointer;
   }
-  .google-opt{
-    width: 80%;
-    height: 35px;
-    margin: auto;
-    border: 1px solid gray;
-    background-color: #eaeaea;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .google-opt>p{
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-  }
-`;
+`

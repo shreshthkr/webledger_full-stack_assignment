@@ -5,12 +5,14 @@ import Login from '../Pages/Login'
 import Saved from '../Pages/Saved'
 import DetailPage from '../Pages/DetailPage'
 import RandomRecepie from '../Pages/RandomRecepie'
+import Signup from '../Pages/Signup'
 const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/saved" element={<Saved />}/>
+      <Route path="/signup" element={<Signup />} />
       <Route path='/random-recepie' element={<RandomRecepie />} />
       <Route path="/recepie/:id" element={<DetailPage />} />
     </Routes>
