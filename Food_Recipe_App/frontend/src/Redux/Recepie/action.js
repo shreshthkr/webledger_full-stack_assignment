@@ -19,7 +19,7 @@ export const getRandomRecepieSuccess = (payload) => {
 
  export const getRandomRecepie = () => (dispatch) => {
      dispatch(getRandomRecepieRequest());
-     return axios.get(`https://api.spoonacular.com/recipes/random?apiKey=7b82973eb9e74727b86bc3e169e6b721&number=10`)
+     return axios.get(`https://api.spoonacular.com/recipes/random?apiKey=05e0a95449fd4f40baa4ac1c908bec50&number=10`)
      .then((res) => {
        dispatch(getRandomRecepieSuccess(res.data.recipes))
       //  console.log(res.data.recipes)
@@ -47,7 +47,7 @@ export const getRecepieSuccess = (payload) => {
 
  export const getRecepie = (paramObj) => (dispatch) => {
    dispatch(getRecepieRequest());
-   return axios.get(`https://api.spoonacular.com/recipes/search?&apiKey=7b82973eb9e74727b86bc3e169e6b721`,
+   return axios.get(`https://api.spoonacular.com/recipes/search?&apiKey=05e0a95449fd4f40baa4ac1c908bec50`,
      paramObj
    )
    .then((res) => {
@@ -60,4 +60,31 @@ export const getRecepieSuccess = (payload) => {
 
 };
 
-//https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&cuisine=italian&number=10&apiKey=7b82973eb9e74727b86bc3e169e6b721&type=main-course
+//https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&cuisine=italian&number=10&apiKey=05e0a95449fd4f40baa4ac1c908bec50&type=main-course
+
+
+export const getRecepieDetailRequest = () => {
+   return {type:types.GET_RECEPIE_DETAIL_REQUEST}
+};
+
+export const getRecepieDetailSuccess = (payload) => {
+    return {type:types.GET_RECEPIE_DETAIL_SUCCESS, payload}
+ };
+
+ export const getRecepieDetailError = () => {
+    return {type:types.GET_RECEPIE_DETAIL_ERROR}
+ };
+
+
+ export const getRecepieDetail = (id) => (dispatch) => {
+   dispatch(getRecepieDetailRequest());
+   return axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=05e0a95449fd4f40baa4ac1c908bec50`)
+   .then((res) => {
+     dispatch(getRecepieDetailSuccess(res.data))
+   //  console.log("params:",paramObj)
+   })
+   .catch((error)=>{
+    dispatch(getRecepieDetailError());
+   })
+
+};

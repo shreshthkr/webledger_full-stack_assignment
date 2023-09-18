@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams, NavLink, useNavigate } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 import { RxAvatar } from "react-icons/rx";
 import { GiKnifeFork } from "react-icons/gi";
 
+const links = [
+  { path: "/", text: "Home" },
+  { path: "/random-recepie", text: "Random Recepies" },
+  { path: "/saved", text: "Saved" },
+];
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-//   useEffect(() => {
-   
-//   }, [search]);
-
   const ToHomePage = () => {
     return navigate("/");
-  };
-
-  const ToSavedPage = () => {
-    return navigate("/saved");
   };
 
   const ToLoginPage = () => {
@@ -32,26 +29,27 @@ const Navbar = () => {
     setSearchParams(params);
   };
 
-//   const handleKeyPress = (event) => {
-//     if (event.key === 'Enter') {
-//     //   console.log('Performing search for:', searchQuery);
-//     }
-//   };
-  // console.log(search)
-
-  
-
   return (
     <NAVBAR>
       <div className="nav-1">
         <div className="logo">
-          <h1 onClick={ToHomePage}><GiKnifeFork />Recepies</h1>
+          <h1 onClick={ToHomePage}>
+            <GiKnifeFork />
+            Recepies
+          </h1>
         </div>
         <div className="menu">
-          <ul>
-            <li onClick={ToHomePage}>Home</li>
-            <li onClick={ToSavedPage}>Saved</li>
-          </ul>
+          {links.map((link) => (
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? "active" : "default";
+              }}
+              key={link.path}
+              to={link.path}
+            >
+              {link.text}
+            </NavLink>
+          ))}
         </div>
       </div>
       <div className="nav-2">
@@ -61,7 +59,9 @@ const Navbar = () => {
             placeholder="Search recepie"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            onKeyPress={(e) => e.key==="Enter" ? handleClick() : console.log("error")}
+            onKeyPress={(e) =>
+              e.key === "Enter" ? handleClick() : console.log("error")
+            }
           />
           <button onClick={handleClick}>
             <SearchIcon fontWeight={600} />
@@ -101,8 +101,7 @@ const NAVBAR = styled.div`
     justify-content: space-around;
   }
   .logo {
-    width: 35%;
-  
+    width: 30%;
   }
   .logo > h1 {
     font-size: 24px;
@@ -118,23 +117,26 @@ const NAVBAR = styled.div`
     cursor: pointer;
   }
   .menu {
-    width: 50%;
-  }
-  .menu > ul {
+    width: 58%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
   }
-  .menu > ul > li {
-    list-style: none;
+  .active {
+    font-size: 15px;
+    color: #ff3700;
     text-decoration: none;
-    font-size: 16px;
+    cursor: pointer;
     font-weight: 600;
     font-family: "Source Sans Pro", Arial, sans-serif;
   }
-  .menu > ul > li:hover {
+  .default {
+    font-size: 15px;
+    color: black;
+    text-decoration: none;
     cursor: pointer;
-    color: #ff3700;
+    font-weight: 600;
+    font-family: "Source Sans Pro", Arial, sans-serif;
   }
   .nav-2 {
     width: 50%;

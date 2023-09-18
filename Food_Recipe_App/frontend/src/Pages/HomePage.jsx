@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getRecepie } from '../Redux/Recepie/action';
 import { useSearchParams } from 'react-router-dom';
@@ -7,12 +7,14 @@ import styled from 'styled-components';
 import { Spinner } from '@chakra-ui/react'
 import Sidebar from '../Components/Sidebar';
 const HomePage = () => {
+
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const {recepie, isLoading }= useSelector((store) => {
       return store.recepieReducer;
   })
-  
+  const [currentPage, setCurrentPage] =useState(1);
+
   
 
 
@@ -26,21 +28,22 @@ const HomePage = () => {
         
       }
   }
-  // searchParams.get("search")
-// console.log(searchParams.get("diet"))
-console.log(searchParams.get("type"))
+
+ const perPageData = 10;
+
 useEffect(()=>{
      dispatch(getRecepie(
       paramObj
      ))
 },[searchParams])
-// console.log(recepie);
+console.log(recepie.totalResults);
 return (
   <HOME>
     <div className="sidebar">
       <Sidebar />
     </div>
     <div className='recepie-data'>
+      <div className='dish-list'>
     {isLoading ? (<Spinner
   thickness='4px'
   speed='0.65s'
@@ -51,6 +54,10 @@ return (
 />) : recepie && recepie.map((el) => {
       return <ItemCard key={el.id} recepie={el} />
     })}
+</div>
+<div className='pagination'>
+   
+</div>
   </div>
   </HOME>
 )
@@ -81,6 +88,15 @@ const HOME = styled.div`
 .recepie-data{
   width: 75%;
    height: auto;
+   margin: auto;
+   display:flex ;
+   flex-direction: column;
+  align-items: center;
+  justify-content: center; ;
+}
+.dish-list{
+  width: 100%;
+  height: auto;
    margin: auto;
    display: grid;
    grid-template-columns: repeat(4,1fr);

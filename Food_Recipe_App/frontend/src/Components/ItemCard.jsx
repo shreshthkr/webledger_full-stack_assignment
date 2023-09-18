@@ -46,7 +46,7 @@ const ItemCard = ({ recepie }) => {
 export default ItemCard;
 
 const CARD = styled.div`
-  width: 200px;
+  width: 230px;
   height: 300px;
   display: flex;
   flex-direction: column;
