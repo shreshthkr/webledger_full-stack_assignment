@@ -7,7 +7,7 @@ const Pagination = ({currentPage, totalPage,onPageChange}) => {
     for(let i=1;i<=Math.min(10, totalPage);i++){
         pageNumbers.push(i);
     }
-
+     
     return (
     <BUTTON>
       {pageNumbers.map((el)=>(

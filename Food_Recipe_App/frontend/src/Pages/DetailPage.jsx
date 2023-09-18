@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import HtmlReactParser from 'html-react-parser';
-
+import {BsBookmark} from "react-icons/bs";
+import { ImSpoonKnife } from "react-icons/im";
+import { MdOutlineWatchLater } from "react-icons/md";
 import { getRecepieDetail } from '../Redux/Recepie/action';
 const DetailPage = () => {
   const params = useParams();
@@ -19,11 +21,22 @@ const DetailPage = () => {
   
 
 const recepiesummary = details?.summary ? HtmlReactParser(details.summary) : null;
-console.log(details.analyzedInstructions[0].steps)
+const recepieinstruction = details?.instructions ? HtmlReactParser(details.instructions) : null;
+
+
+
   return (
     <DETAIL>
       <div className='dish-title'>
+        <div> 
         <h1>{details.title}</h1> 
+        <BsBookmark fontSize={"24px"} backgroundColor={"white"} cursor={"pointer"} />
+        </div>
+        <div className='recepie-servngs'>
+        <p> <ImSpoonKnife /> {details.servings}</p>
+        <p> <MdOutlineWatchLater />
+                {details.readyInMinutes}min</p>
+        </div>
         <hr />
       </div>
       <div className='recepie-details'>
@@ -41,9 +54,9 @@ console.log(details.analyzedInstructions[0].steps)
           </div>
           <div className='ingridient-list'>
           <ul>
-          {details?.extendedIngredients?.map((el)=>(
-              <li key={el.id}>
-                {el.originalName} - {el.amount}{el.unit}
+          {details?.extendedIngredients?.map((el,index)=>(
+              <li key={el.id+index}>
+                {el.originalName} - {el.amount} {el.unit}
               </li>
           ))}
           </ul>
@@ -54,11 +67,11 @@ console.log(details.analyzedInstructions[0].steps)
               <h2>Instructions:</h2>
             </div>
             <div className='instructios'>
-              <ol>
-              {details?.analyzedInstructions[0]?.steps?.map((step) => (
-                <li key={step.number}>{step.step}</li>
-              ))}
-              </ol>
+             
+
+                <p>{recepieinstruction}</p>
+              
+             
             </div>
         </div>
       </div>
@@ -71,26 +84,48 @@ export default DetailPage
 
 const DETAIL = styled.div`
   width: 95%;
-  height: 600px;
+  height: auto;
   margin: auto;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 30px;
-  margin-top:100px;
+  margin-top:50px;
 
   .dish-title{
     width: 95%;
     height: 60px;
     margin: auto;
+    margin-bottom: 30px;
   }
-  .dish-title>h1{
+  .dish-title>div:first-child{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dish-title>div:first-child>h1{
     text-align: left;
     font-size: 24px;
     font-weight: 600;
     font-family: "Source Sans Pro", Arial, sans-serif;
+  }
+  .recepie-servngs{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  .recepie-servngs p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 600;
   }
   .recepie-details{
     width: 95%;
@@ -100,6 +135,7 @@ const DETAIL = styled.div`
     align-items: flex-start;
     justify-content: center;
     margin:auto;
+    margin-top: 20px;
   }
   .about-dish{
     width: 100%;
@@ -122,7 +158,7 @@ const DETAIL = styled.div`
   }
   .dish-summary{
     width: 55%;
-    height: 280px;
+    height: auto;
   }
   .dish-summary>p{
     font-size: 16px;
@@ -159,9 +195,10 @@ const DETAIL = styled.div`
     height: auto;
     display: grid;
     grid-template-columns: repeat(2,1fr);
+    row-gap: 10px;
   }
   .ingridient-list>ul>li{
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     font-family: "Source Sans Pro", Arial, sans-serif;
   }
@@ -189,8 +226,10 @@ const DETAIL = styled.div`
     width: 100%;
     height: auto;
   }
-  .instructios>ol{
-    width: 80%;
-    height: auto;
+  .instructios>p{
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 0.5px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
   }
 `

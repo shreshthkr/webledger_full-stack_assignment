@@ -6,6 +6,7 @@ import ItemCard from '../Components/ItemCard';
 import styled from 'styled-components';
 import { Spinner } from '@chakra-ui/react'
 import Sidebar from '../Components/Sidebar';
+import Pagination from '../Components/Pagination';
 const HomePage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +25,7 @@ const HomePage = () => {
         cuisine:searchParams.get("cuisine"),
         type:searchParams.get("type"),
         query:searchParams.get("search"),
+        offset:searchParams.get("page")
   
         
       }
@@ -35,8 +37,18 @@ useEffect(()=>{
      dispatch(getRecepie(
       paramObj
      ))
-},[searchParams])
-console.log(recepie.totalResults);
+},[searchParams]);
+
+useEffect(() => {
+  let params = {
+    page:currentPage
+  }
+  setSearchParams(params)
+},[currentPage]);
+let totalPage = 10;
+const onPageChange = (el) => {
+   setCurrentPage(el);
+}
 return (
   <HOME>
     <div className="sidebar">
@@ -56,7 +68,12 @@ return (
     })}
 </div>
 <div className='pagination'>
-   
+  
+   <Pagination 
+   currentPage={currentPage} 
+   totalPage={totalPage} 
+   onPageChange={onPageChange}
+   />
 </div>
   </div>
   </HOME>
@@ -101,5 +118,9 @@ const HOME = styled.div`
    display: grid;
    grid-template-columns: repeat(4,1fr);
    gap: 20px;
+}
+.pagination{
+  height: 60px;
+  margin-top: 30px;
 }
 `
