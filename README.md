@@ -12,7 +12,8 @@
 
 
 
-![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/cb1e1dc0-d84b-4fea-9798-369b4cbddcd2)
+![Detail Page](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/015574de-1fff-4f7f-8617-af1bccabf91d)
+
 
 
 
