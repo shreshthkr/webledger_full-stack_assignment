@@ -8,10 +8,12 @@
 
    #ScreenShots:
 
-![HomePage](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/68bb30ec-b99d-46aa-bfc3-0d3b6da291b3)
+![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/f17d1b86-4a7f-44cb-86f8-91f3ae1ecb50)
 
 
-![Detail Page](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/9d78e4ad-21db-4579-85a6-48560d495206)
+
+![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/3d93210a-3237-4a8b-9d51-1810c2b63bb8)
+
 
 ![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/fb7f6d3a-5cc3-446a-aedc-b7d856e3d2d3)
 
