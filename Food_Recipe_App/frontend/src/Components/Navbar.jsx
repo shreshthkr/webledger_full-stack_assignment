@@ -14,7 +14,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-
+  const token = localStorage.getItem("token");
   const ToHomePage = () => {
     return navigate("/");
   };
@@ -28,7 +28,10 @@ const Navbar = () => {
     search && (params.search = search);
     setSearchParams(params);
   };
-
+const handleLogOut = () => {
+  localStorage.removeItem('token');
+  navigate("/")
+}
   return (
     <NAVBAR>
       <div className="nav-1">
@@ -68,11 +71,12 @@ const Navbar = () => {
           </button>
         </div>
         <div className="login-avatar">
-          <RxAvatar
+
+        { !token ? (<RxAvatar
             fontSize={"30px"}
             cursor={"pointer"}
             onClick={ToLoginPage}
-          />
+          />): ( <button className="logout" onClick={handleLogOut}>Logout</button>)}
         </div>
       </div>
     </NAVBAR>
@@ -162,12 +166,19 @@ const NAVBAR = styled.div`
   }
   .search-box > button {
     width: 80px;
-    height: 34px;
+    height: 30px;
     border: 1px solid gray;
     border-left: none;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
   }
-  .login-avatar {
+  .logout{
+    width:100px;
+    height: 30px;
+    background-color: #ff3700;
+    border:none;
+    cursor:pointer;
+    color:#ffff;
+    border-radius:8px;
   }
 `;

@@ -102,11 +102,13 @@ export const getSavedRecepieSuccess = (payload) => {
  };
 
 
- export const getSavedRecepie = () => (dispatch) => {
+ export const getSavedRecepie = (token) => (dispatch) => {
    dispatch(getSavedRecepieRequest());
-   return axios.get(`http://localhost:8080/savedrecepies/recepies`)
+   return axios.get(`http://localhost:8080/savedrecepies/recepies`,{
+      headers:{"Authorization": token}
+   })
    .then((res) => {
-     dispatch(getSavedRecepieSuccess(res.data.results))
+     dispatch(getSavedRecepieSuccess(res.data))
    })
    .catch((error)=>{
     dispatch(getSavedRecepieError());

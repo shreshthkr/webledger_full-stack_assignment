@@ -18,7 +18,7 @@ const SavedItemCard = ({ recepie }) => {
       <div className="food-card">
         <div className="food-image">
           <img
-            src={`https://spoonacular.com/recipeImages/${recepie.image}`}
+            src={recepie.image}
             alt={recepie.title}
           />
         </div>
