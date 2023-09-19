@@ -24,7 +24,7 @@ const Signup = () => {
         password:password,
 
     };
-    fetch("http://localhost:8080/users/register",{
+    fetch("https://zany-jade-elk-yoke.cyclic.cloud/users/register",{
         method:"POST",
         headers: {
             "Content-type": "Application/json",

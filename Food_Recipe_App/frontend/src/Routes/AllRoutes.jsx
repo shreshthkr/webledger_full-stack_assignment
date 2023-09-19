@@ -4,7 +4,6 @@ import HomePage from '../Pages/HomePage'
 import Login from '../Pages/Login'
 import Saved from '../Pages/Saved'
 import DetailPage from '../Pages/DetailPage'
-import RandomRecepie from '../Pages/RandomRecepie'
 import Signup from '../Pages/Signup'
 import PrivateRoute from './PrivateRoute';
 const AllRoutes = () => {
@@ -14,7 +13,6 @@ const AllRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/saved" element={<PrivateRoute><Saved /></PrivateRoute>}/>
       <Route path="/signup" element={<Signup />} />
-      <Route path='/random-recepie' element={<RandomRecepie />} />
       <Route path="/recepie/:id" element={<DetailPage />} />
     </Routes>
   )

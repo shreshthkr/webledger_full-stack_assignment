@@ -18,7 +18,7 @@ const Login = () => {
       email: email,
       password: password,
     };
-    fetch("http://localhost:8080/users/login", {
+    fetch("https://zany-jade-elk-yoke.cyclic.cloud/users/login", {
       method: "POST",
       headers: {
         "Content-type": "Application/json",

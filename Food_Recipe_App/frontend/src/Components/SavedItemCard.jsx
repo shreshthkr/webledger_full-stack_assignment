@@ -4,19 +4,49 @@ import { ImSpoonKnife } from "react-icons/im";
 import { MdOutlineWatchLater } from "react-icons/md";
 import {AiFillDelete} from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
+import { useToast } from '@chakra-ui/react'
+import axios from "axios";
 const SavedItemCard = ({ recepie }) => {
-
+  const toast = useToast()
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const handleDetails = () => {
     return navigate(`/recepie/${recepie.id}`)
   }
-
+ 
+  const handleDelete = () => {
+    console.log("recepie.id:",recepie.id)
+       axios.delete(`https://zany-jade-elk-yoke.cyclic.cloud/savedrecepies/delete/${recepie.id}`,{
+        headers:{
+          Authorization:token
+        },
+       })
+       .then((res)=>{
+        toast({
+          title: 'Recepie Deleted',
+          description: "Recepie Deleted Successfully",
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        })
+       })
+       .catch((err) => {
+        toast({
+          title: 'Recepie Not Deleted',
+          description: "Error",
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        })
+        console.log(err);
+       })
+  };
 
   return (
-    <CARD onClick={handleDetails}>
+    <CARD >
       <div className="food-card">
-        <div className="food-image">
+        <div className="food-image" onClick={handleDetails}>
           <img
             src={recepie.image}
             alt={recepie.title}
@@ -32,11 +62,11 @@ const SavedItemCard = ({ recepie }) => {
                 <MdOutlineWatchLater />
                 {recepie.readyInMinutes}min
               </li>
-             <li><AiFillDelete /></li>
+             <li onClick={handleDelete}><AiFillDelete /></li>
             </ul>
           </div>
           <div className="food-title">
-            <p>{recepie.title}</p>
+            <p onClick={handleDetails}>{recepie.title}</p>
           </div>
         </div>
       </div>

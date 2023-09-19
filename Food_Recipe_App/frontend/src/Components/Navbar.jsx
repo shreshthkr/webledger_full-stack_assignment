@@ -7,7 +7,6 @@ import { GiKnifeFork } from "react-icons/gi";
 
 const links = [
   { path: "/", text: "Home" },
-  { path: "/random-recepie", text: "Random Recepies" },
   { path: "/saved", text: "Saved" },
 ];
 const Navbar = () => {

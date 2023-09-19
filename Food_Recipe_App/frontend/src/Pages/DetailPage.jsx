@@ -31,7 +31,7 @@ const token = localStorage.getItem("token");
 
 const saveRecepie = () => {
   if(token){
-  fetch('http://localhost:8080/savedrecepies/add',{
+  fetch('https://zany-jade-elk-yoke.cyclic.cloud/savedrecepies/add',{
     method:"POST",
     headers:{
       'Content-Type': 'application/json',
