@@ -12,10 +12,11 @@
 
 
 
-![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/3d93210a-3237-4a8b-9d51-1810c2b63bb8)
+![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/cb1e1dc0-d84b-4fea-9798-369b4cbddcd2)
+
 
 
 ![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/fb7f6d3a-5cc3-446a-aedc-b7d856e3d2d3)
 
-![image](https://github.com/shreshthkr/webledger_full-stack_assignment/assets/101830301/04dfe350-6ece-45e4-9a7d-553ff4cdcbcf)
+
 
