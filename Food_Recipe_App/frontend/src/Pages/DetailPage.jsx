@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import {BsBookmark} from "react-icons/bs";
 import { ImSpoonKnife } from "react-icons/im";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { getRecepieDetail } from '../Redux/Recepie/action';
+import { useToast } from '@chakra-ui/react'
 const DetailPage = () => {
   const params = useParams();
   const {id} = params;
@@ -14,23 +15,67 @@ const DetailPage = () => {
   const details = useSelector((store) => {
     return store.Detailreducer.recepieDetail;
   })
-
+  const [isSaved, setIsSaved] = useState(false);
  useEffect(()=>{
     dispatch(getRecepieDetail(id))
  },[dispatch,id]);
   
-
+ const toast = useToast()
 const recepiesummary = details?.summary ? HtmlReactParser(details.summary) : null;
 const recepieinstruction = details?.instructions ? HtmlReactParser(details.instructions) : null;
+const token = localStorage.getItem("token");
 
 
+
+
+
+const saveRecepie = () => {
+  if(token){
+  fetch('http://localhost:8080/savedrecepies/add',{
+    method:"POST",
+    headers:{
+      'Content-Type': 'application/json',
+      "Authorization":token
+    },
+    body: JSON.stringify(details),
+  })
+  .then((res)=>{
+     setIsSaved(true);
+     toast({
+      title: 'Recepie Saved',
+      description: "",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
+  })
+  .catch((err)=>{
+    console.log(err)
+    toast({
+      title: 'Error Saving Recepie',
+      description: "",
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    })
+  })
+} else{
+  toast({
+    title: 'Login First',
+    description: "",
+    status: 'error',
+    duration: 9000,
+    isClosable: true,
+  })
+}
+}
 
   return (
     <DETAIL>
       <div className='dish-title'>
         <div> 
         <h1>{details.title}</h1> 
-        <BsBookmark fontSize={"24px"} backgroundColor={"white"} cursor={"pointer"} />
+        <BsBookmark fontSize={"24px"} backgroundColor={"white"} cursor={"pointer"} onClick={saveRecepie} />
         </div>
         <div className='recepie-servngs'>
         <p> <ImSpoonKnife /> {details.servings}</p>

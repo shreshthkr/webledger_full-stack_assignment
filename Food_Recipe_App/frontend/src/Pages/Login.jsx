@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { GiKnifeFork } from "react-icons/gi";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { useToast } from '@chakra-ui/react';
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const toast = useToast()
   const handleToSignup = () => {
     
     return navigate("/signup")
@@ -28,8 +29,21 @@ const Login = () => {
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.token);
+        toast({
+          title: 'Login Successfull',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {console.log(err)
+        toast({
+          title: 'Invalid Credentials',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
+      });
   };
   return (
     <LOGINCONTAINER>
@@ -44,14 +58,24 @@ const Login = () => {
           <form className="form-box">
             <div className="input-tag">
               <label>Email</label>
-              <input type="email" placeholder="Enter registered email" />
+              <input 
+              type="email" 
+              placeholder="Enter registered email"
+              value={email}
+              onChange={(e)=> setEmail(e.target.value)}
+               />
             </div>
             <div className="input-tag">
               <label>Password</label>
-              <input type="password" placeholder="Enter your password" />
+              <input 
+              type="password" 
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e)=> setPassword(e.target.value)}
+              />
             </div>
           </form>
-          <button>Login</button>
+          <button onClick={handleSubmit}>Login</button>
         </div>
         <div className="signup-opt">
           <p>

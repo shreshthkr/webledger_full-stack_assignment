@@ -52,7 +52,6 @@ export const getRecepieSuccess = (payload) => {
    )
    .then((res) => {
      dispatch(getRecepieSuccess(res.data.results))
-   //  console.log("params:",paramObj)
    })
    .catch((error)=>{
     dispatch(getRecepieError());
@@ -60,7 +59,7 @@ export const getRecepieSuccess = (payload) => {
 
 };
 
-//https://api.spoonacular.com/recipes/complexSearch?query=pasta&maxFat=25&cuisine=italian&number=10&apiKey=c112bca6eca94ac0a5a6aec9f731b0eb&type=main-course
+
 
 
 export const getRecepieDetailRequest = () => {
@@ -81,10 +80,36 @@ export const getRecepieDetailSuccess = (payload) => {
    return axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=c112bca6eca94ac0a5a6aec9f731b0eb`)
    .then((res) => {
      dispatch(getRecepieDetailSuccess(res.data))
-    console.log(res.data)
    })
    .catch((error)=>{
     dispatch(getRecepieDetailError());
+   })
+
+};
+
+
+
+export const getSavedRecepieRequest = () => {
+   return {type:types.GET_SAVED_RECEPIE_REQUEST}
+};
+
+export const getSavedRecepieSuccess = (payload) => {
+    return {type:types.GET_SAVED_RECEPIE_SUCCESS, payload}
+ };
+
+ export const getSavedRecepieError = () => {
+    return {type:types.GET_SAVED_RECEPIE_ERROR}
+ };
+
+
+ export const getSavedRecepie = () => (dispatch) => {
+   dispatch(getSavedRecepieRequest());
+   return axios.get(`http://localhost:8080/savedrecepies/recepies`)
+   .then((res) => {
+     dispatch(getSavedRecepieSuccess(res.data.results))
+   })
+   .catch((error)=>{
+    dispatch(getSavedRecepieError());
    })
 
 };

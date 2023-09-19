@@ -8,6 +8,9 @@ import {
   GET_RECEPIE_ERROR,
   GET_RECEPIE_REQUEST,
   GET_RECEPIE_SUCCESS,
+  GET_SAVED_RECEPIE_ERROR,
+  GET_SAVED_RECEPIE_REQUEST,
+  GET_SAVED_RECEPIE_SUCCESS,
 } from "./actionType";
 
 const initialState = {
@@ -62,6 +65,26 @@ export const Detailreducer = (state = DetailinitialState, { type, payload }) => 
     case GET_RECEPIE_DETAIL_SUCCESS:
       return { ...state, isLoading: false, recepieDetail: payload };
     case GET_RECEPIE_DETAIL_ERROR:
+      return { ...state, isLoading: false, isError: true };
+    default:
+      return state;
+  }
+};
+
+
+const SavedInitialState = {
+  isLoading: true,
+  isError: false,
+  recepieSaved: [],
+};
+
+export const SavedReducer = (state = SavedInitialState, { type, payload }) => {
+  switch (type) {
+    case GET_SAVED_RECEPIE_REQUEST:
+      return { ...state, isLoading: true };
+    case GET_SAVED_RECEPIE_SUCCESS:
+      return { ...state, isLoading: false, recepieSaved: payload };
+    case GET_SAVED_RECEPIE_ERROR:
       return { ...state, isLoading: false, isError: true };
     default:
       return state;
